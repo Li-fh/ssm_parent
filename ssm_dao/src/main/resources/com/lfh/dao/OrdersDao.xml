@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfh.dao.OrdersDao">
+    <!--resultMap:结果映射
+        id 唯一的表示符
+        type 返回值的类型
+
+        如果只映射了单个对象，如果列名和属性名相同可以不写
+        xml:如果一对一，一对多映射，那么属性名列名相同不相同都要写
+    -->
+    <resultMap id="orderMap" type="orders">
+        <id column="id" property="id"></id>
+        <result column="orderNum" property="orderNum"></result>
+        <result column="orderTime" property="orderTime"></result>
+        <result column="peopleCount" property="peopleCount"></result>
+        <result column="payType" property="payType"></result>
+        <result column="orderStatus" property="orderStatus"></result>
+        <result column="orderDesc" property="orderDesc"></result>
+        <!--映射产品属性-->
+        <!--一对一映射使用：association-->
+        <!--property:属性名
+            column:列名，把列值作为参数查询产品对象
+            javaType:属性的类型
+            select:名称空间+id = 接口全类名 + 方法名
+        -->
+        <!--一对多映射使用：collection-->
+        <association property="product" column="productId"
+                     javaType="product" select="com.lfh.dao.ProductDao.findById"></association>
+    </resultMap>
+
+    <select id="findAll" resultMap="orderMap">
+        select * from orders
+    </select>
+    <insert id="save" parameterType="orders">
+        insert into orders values (null,#{orderNum},#{orderTime},#{peopleCount},
+        #{orderDesc},#{payType},#{orderStatus},#{product.id})
+    </insert>
+</mapper>
