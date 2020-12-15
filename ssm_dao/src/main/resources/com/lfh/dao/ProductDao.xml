@@ -8,8 +8,8 @@
     </select>
 
     <insert id="save" parameterType="product">
-        insert into product values (null,#{productNum},#{productName},#{cityName},#{departureTime},
-        #{productPrice},#{productDesc},#{productStatus});
+        insert into product values
+        (null,#{productNum},#{productName},#{cityName},#{departureTime},#{productPrice},#{productDesc},#{productStatus});
     </insert>
 
     <select id="findById" resultType="product" parameterType="int">
