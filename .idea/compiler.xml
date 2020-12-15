@@ -13,5 +13,8 @@
         <module name="ssm_dao" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ssm" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
